@@ -36,6 +36,7 @@ local minecraft = "minecraft-launcher"
 
 hl.on("hyprland.start", function () 
     hl.exec_cmd("hyprpaper") -- Wallpaper
+    hl.exec_cmd("wl-paste --type text --watch cliphist store & wl-paste --type image --watch cliphist store") -- Clipboard
 end)
 
 -------------------------------
@@ -222,16 +223,25 @@ local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close()) -- Clo
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" })) -- Split mode toggle
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- Split position toggle
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("pkill wofi || hyprctl activewindow -j | jq -r '\"CLASS: \" + .class, \"TITLE: \" + .title' | wofi --conf=$HOME/.config/wofi/config-info --style=$HOME/.config/wofi/style-info.css --show dmenu")) -- Get name and class
+
+-- Screenshot
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("hyprshot -m region")) -- Screenshot
+
+-- Clipboard
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd("pkill wofi || cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
+hl.bind(mainShift .. " + G", hl.dsp.exec_cmd("cliphist wipe & notify-send -e -u normal -t 4000 -i $HOME/Pictures/Icons/Clipboard.png 'Clipboard' 'Succsesfully cleared!'"))
+
+-- Menu
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("pkill wofi || wofi --show drun")) -- App menu
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pkill wofi || wofi --show run")) -- Command menu
 
 -- Warp
-hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("if warp-cli status | grep -qi 'disconnected'; then warp-cli connect; else warp-cli disconnect; fi"))
-
--- Hyprshot
-hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("hyprshot -m region"))
+hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd("if warp-cli status | grep -qi 'disconnected'; then warp-cli connect & notify-send -e -u normal -t 4000 -i $HOME/Pictures/Icons/Warp.png 'Warp' 'Connected'; else warp-cli disconnect & notify-send -e -u normal -t 4000 -i $HOME/Pictures/Icons/Warp.png 'Warp' 'Disconnected'; fi"))
 
 -- System
 hl.bind(mainShift .. " + Q", hl.dsp.exec_cmd("poweroff")) -- Power off
-hl.bind(mainShift .. " + Q", hl.dsp.exec_cmd("reboot")) -- Reboot
+hl.bind(mainShift .. " + E", hl.dsp.exec_cmd("reboot")) -- Reboot
 hl.bind(mainShift .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")) -- Logout
 
 -- Move focus with mainMod + arrow keys
