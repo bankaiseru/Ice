@@ -203,14 +203,16 @@ local mainMega = "SUPER + SHIFT + CTRL + ALT"
 
 -- Apps
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal)) -- Terminal
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Browser
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(ide)) -- Editor
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager)) -- File Manager
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(messenger)) -- Discord
-hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(notes)) -- Obsidian
-hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(video)) -- OBS
-hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd(videoEditor)) -- Kdenlive
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(ide)) -- Code Editor
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(notes)) -- Notes
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(vb)) -- Virtual Box
+
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Browser
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(messenger)) -- Messenger
+
+hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(video)) -- Video
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd(videoEditor)) -- Video Editor
 
 -- Games
 hl.bind(mainAlt .. " + M", hl.dsp.exec_cmd(minecraft)) -- Minecraft
