@@ -2,22 +2,27 @@
 ---- MONITORS ----
 ------------------
 
-hl.monitor({ output="HDMI-A-1", mode="1920x1080@144", position="0x0", scale="1" })
-hl.monitor({ output = "eDP-1", disabled = true })
+hl.monitor({ output="HDMI-A-1", mode="1920x1080@144", position="0x0", scale="1" }) -- Primary monitor
+hl.monitor({ output = "eDP-1", disabled = true }) -- Laptop monitor
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
 
+-- Essentials
 local terminal = "kitty"
 local fileManager = "thunar"
-local editor = "code"
+local ide = "code"
+local notes = "obsidian"
+local vb = "virtualbox"
+
+-- Web
 local browser = "firefox"
 local messenger = "discord"
-local notes = "obsidian"
+
+-- Media
 local video = "obs"
 local videoEditor = "Kdenlive"
-local vb = "virtualbox"
 
 ------------------
 ---- MY GAMES ----
@@ -30,7 +35,7 @@ local minecraft = "minecraft-launcher"
 -------------------
 
 hl.on("hyprland.start", function () 
-    hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("hyprpaper") -- Wallpaper
 end)
 
 -------------------------------
@@ -146,7 +151,7 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,
+        force_default_wallpaper = 0,
         disable_hyprland_logo   = true,
     },
 })
@@ -185,7 +190,6 @@ hl.device({
     sensitivity = -0.5,
 })
 
-
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
@@ -195,11 +199,12 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local mainShift = "SUPER + SHIFT"
 local mainCtrl = "SUPER + CTRL"
 local mainAlt = "SUPER + ALT"
+local mainMega = "SUPER + SHIFT + CTRL + ALT"
 
 -- Apps
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal)) -- Terminal
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser)) -- Browser
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(editor)) -- Editor
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(ide)) -- Editor
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager)) -- File Manager
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(messenger)) -- Discord
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(notes)) -- Obsidian
@@ -272,14 +277,14 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
-local suppressMaximizeRule = hl.window_rule({
+local suppressMaximizeRule = hl.window_rule({ -- Size
     name  = "suppress-maximize-events",
     match = { class = ".*" },
 
     suppress_event = "maximize",
 })
 
-hl.window_rule({
+hl.window_rule({ -- fix xwayland drags
     name  = "fix-xwayland-drags",
     match = {
         class      = "^$",
@@ -293,7 +298,7 @@ hl.window_rule({
     no_focus = true,
 })
 
-hl.window_rule({
+hl.window_rule({ -- hyprland-run
     name  = "move-hyprland-run",
     match = { class = "hyprland-run" },
 
